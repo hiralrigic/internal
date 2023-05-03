@@ -4,7 +4,16 @@ const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
 
-// Base
+const User = React.lazy(() => import('./pages/Userlist/Userlist'))
+const AddUser = React.lazy(() => import('./pages/Userlist/Adduser'))
+
+const Product = React.lazy(() => import('./pages/Product/Product'))
+const AddProduct = React.lazy(() => import('./pages/Product/Addproduct'))
+
+const Category = React.lazy(() => import('./pages/category/Category'))
+
+
+
 const Accordion = React.lazy(() => import('./views/base/accordion/Accordion'))
 const Breadcrumbs = React.lazy(() => import('./views/base/breadcrumbs/Breadcrumbs'))
 const Cards = React.lazy(() => import('./views/base/cards/Cards'))
@@ -53,6 +62,17 @@ const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
+
+  { path: '/pages/user/user', name: 'User', element: User },
+  { path: '/pages/user/adduser', name: 'User', element: AddUser },
+
+  { path: '/pages/product/product', name: 'Product', element: Product },
+  { path: '/pages/product/addproduct', name: 'Product', element: AddProduct },
+
+  { path: '/pages/category/category', name: 'Category', element: Category },
+
+
+
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', element: Colors },
   { path: '/theme/typography', name: 'Typography', element: Typography },
