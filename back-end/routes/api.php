@@ -21,8 +21,12 @@ use App\Http\Controllers\API\ProductController;
 Route::controller(RegisterController::class)->group(function(){
     Route::post('register', 'register');
     Route::post('login', 'login');
+    Route::get('show', 'show');
 });
         
 Route::middleware('auth:sanctum')->group( function () {
     Route::resource('products', ProductController::class);
+    Route::get("show/{id}", [ProductController::class, "show"]);
+    Route::post("update/{id}", [ProductController::class, "update"]);
+    Route::delete("destroy/{id}", [ProductController::class, "destroy"]);
 });
