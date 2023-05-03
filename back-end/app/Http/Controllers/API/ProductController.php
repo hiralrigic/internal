@@ -69,7 +69,7 @@ class ProductController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $id)
     {
         $input = $request->all();
    
@@ -81,7 +81,7 @@ class ProductController extends BaseController
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors());       
         }
-   
+        $product = Product::find($id);
         $product->name = $input['name'];
         $product->detail = $input['detail'];
         $product->save();
@@ -95,8 +95,9 @@ class ProductController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy(Product $product, $id)
     {
+        $product=Product::find($id);
         $product->delete();
    
         return $this->sendResponse([], 'Product deleted successfully.');
