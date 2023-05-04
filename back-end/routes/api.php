@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
   
 use App\Http\Controllers\API\RegisterController;
 use App\Http\Controllers\API\ProductController;
+use App\Http\Controllers\API\CategoryController;
   
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +27,13 @@ Route::controller(RegisterController::class)->group(function(){
         
 Route::middleware('auth:sanctum')->group( function () {
     Route::resource('products', ProductController::class);
-    Route::get("show/{id}", [ProductController::class, "show"]);
-    Route::post("update/{id}", [ProductController::class, "update"]);
-    Route::delete("destroy/{id}", [ProductController::class, "destroy"]);
+    // Route::get("show/{id}", [ProductController::class, "show"]);
+    // Route::post("update/{id}", [ProductController::class, "update"]);
+    // Route::delete("destroy/{id}", [ProductController::class, "destroy"]);
+
+
+});
+
+Route::middleware('auth:sanctum')->group( function () {
+    Route::resource('category', CategoryController::class);
 });
