@@ -55,4 +55,10 @@ class RegisterController extends BaseController
             return $this->sendError('Unauthorised.', ['error'=>'Unauthorised']);
         } 
     }
+    public function show()
+    {
+        $users = User::all();
+
+        return ($users);
+    }
 }
