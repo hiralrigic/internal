@@ -28,14 +28,26 @@ function Userlist() {
       url: 'http://127.0.0.1:8000/api/show',
     })
       .then(function (response) {
-        rows = response.data.data
-        setValue(rows)
-        //console.log(rows);
+        setValue(response.data)
+        console.log(response.data)
       })
       .catch(function (error) {
         console.log(error)
       })
   }
+  // deleteRow(id,e)
+  // {
+      
+  //   axios.delete('http://127.0.0.1:8000/api/destroy/${id}')  
+  //     .then(response => {  
+  //       console.log(response);  
+  //       console.log(response.data);  
+    
+  //       const posts = this.state.posts.filter(row => row.id !== id);  
+  //       this.setState({ posts });  
+  //     })  
+    
+  // }  
 
   return (
     <CContainer>
@@ -66,60 +78,20 @@ function Userlist() {
                     {value.length > 0 &&
                       value.map((row, key) => (
                         <tr key={key}>
+                        <td>{row.id}</td>
+
                           <td>{row.name}</td>
                           <td>{row.email}</td>
 
                           <td>
-                            <Link to={''} className="btn btn-success me-2">
+                            <Link to={'/pages/user/edituser/'}$  className="btn btn-success me-2">
                               Edit
                             </Link>
-                            <CButton variant="danger">Delete</CButton>
+                            <CButton variant="danger" onClick={(e) => this.deleteRow(row.id, e)} >Delete</CButton>
                           </td>
                         </tr>
                       ))}
-                    {/* {value ? (
-                            value.map((row, i) => (
-                              <tr key={i}>
-                                <td>{row.name}</td>
-                                <td>{row.email}</td>
-                                <td>{row.password}</td>
-                              </tr>
-                            ))
-                          ) : (
-                            <tr>
-                              <td>No Data Found</td>
-                            </tr>
-                          )} */}
-                    {/* <tr>
-                            <td>1</td>
-                            <td>Herman Beck</td>
-                            <td>herman@gmail.com</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Messsy Adam</td>
-                            <td>messy@gmail.com</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>John Richards</td>
-                            <td>john@gmail.com</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>Peter Meggik</td>
-                            <td>peter@gmail.com</td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>Edward</td>
-                            <td>edwards@gmail.com</td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>John Doe</td>
-                            <td>john@gmail.com</td>
-                        </tr> */}
+                   
                   </tbody>
                 </table>
               </div>
