@@ -7,8 +7,6 @@ import {
   CCardBody,
   CCol,
   CContainer,
-  EditableText,
-
   CForm,
   CFormInput,
   CFormLabel,
@@ -151,7 +149,6 @@ function Edituser() {
       </CRow>
     </CContainer>
   )
-
   {
     /* </div> */
   }

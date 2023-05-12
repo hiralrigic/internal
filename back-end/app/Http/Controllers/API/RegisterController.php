@@ -86,9 +86,6 @@ class RegisterController extends BaseController
     $user = User::find($id);
 
     $input = $request->all();
-    // echo "<pre>";
-    //  print_r($input);
-    //  die();
     // $validator = Validator::make($input, [
     // 'name' => 'required',
     // 'email' => 'required|email',
@@ -98,7 +95,6 @@ class RegisterController extends BaseController
     // }
     $user->name = $input['name'];
     $user->email = $input['email'];
-   
 
     $user->save();
     return response()->json([
