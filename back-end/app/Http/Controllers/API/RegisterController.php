@@ -59,6 +59,76 @@ class RegisterController extends BaseController
     {
         $users = User::all();
 
-        return ($users);
+        return $users;
     }
+
+    public function edit($id)
+    {
+        $users = User::find($id);
+        if($users){
+
+            return response()->json([
+                'status' => 200,
+                'users' => $users
+            ],200);
+        }else{
+
+            return response()->json([
+                'status' => 404,
+                'message' => "No User Found"
+            ],404);
+
+        }
+    }
+
+    public function update(Request $request,$id)
+{
+    $user = User::find($id);
+
+    $input = $request->all();
+    // echo "<pre>";
+    //  print_r($input);
+    //  die();
+    // $validator = Validator::make($input, [
+    // 'name' => 'required',
+    // 'email' => 'required|email',
+    // ]);
+    // if($validator->fails()){
+    // return $this->sendError('Validation Error.', $validator->errors());       
+    // }
+    $user->name = $input['name'];
+    $user->email = $input['email'];
+   
+
+    $user->save();
+    return response()->json([
+    "success" => true,
+    "message" => "user updated successfully.",
+    "data" => $user
+    ]);
+}
+
+    public function destroy($id)
+    {
+        $users = User::find($id);
+       // echo "<pre>";print_r($users);die();
+        $users->delete();
+
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'User Delete successfully'
+        ]);
+    }
+
+    // public function destroy(Product $product)
+    //         {
+    //         $product->delete();
+    //         return response()->json([
+    //         "success" => true,
+    //         "message" => "Product deleted successfully.",
+    //         "data" => $product
+    //         ]);
+    //         }
+
 }
