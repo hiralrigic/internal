@@ -34,8 +34,8 @@ function Login() {
       .post("http://127.0.0.1:8000/api/login", data)
       .then((response) => {
         if (response.status === 200) {
-         
-          console.log(response.data.success)
+         var token =localStorage.setItem('platformDashToken', response.data.data.token)
+          console.log( response.data.data.token)
           navigate('/dashboard')
         } else {
           alert(response.data.success)

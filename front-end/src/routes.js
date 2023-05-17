@@ -17,6 +17,7 @@ const AddCategory = React.lazy(() => import('./pages/category/Addcategory'))
 
 
 
+
 // Base
 // const Accordion = React.lazy(() => import('./views/base/accordion/Accordion'))
 // const Breadcrumbs = React.lazy(() => import('./views/base/breadcrumbs/Breadcrumbs'))
@@ -75,8 +76,8 @@ const routes = [
   { path: '/product', name: 'Product', element: Product },
   { path: '/addproduct', name: 'Product', element: AddProduct },
 
-  { path: '/pages/category/category', name: 'Category', element: Category },
-  { path: '/pages/category/addcategory', name: 'Category', element: AddCategory },
+  { path: '/category', name: 'Category', element: Category },
+  { path: '/addcategory', name: 'Category', element: AddCategory },
 
 
   // { path: '/theme', name: 'Theme', element: Colors, exact: true },

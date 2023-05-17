@@ -29,6 +29,7 @@ function Addproduct() {
     }
     axios
       .post('http://127.0.0.1:8000/api/products', data)
+
       .then((response) => {
         if (response.status === 200) {
           console.log(response.data.success)

@@ -22,19 +22,15 @@ function Edituser() {
 
   const [name, setUserName] = useState('');
   const [email, setUserEmail] = useState('');
-  // const [password, setPassword] = useState('');
-  // const [repassword, setRPassword] = useState('');
+ 
 
   useEffect(() => {
     axios.get(`http://127.0.0.1:8000/api/edit/${id}`).then((response) => {
       const {name,email} = response.data.users;
-    //  console.log(response.data)
-
-      // setUserId(userData.id);
+    
       setUserName(name);
       setUserEmail(email);
-      // setPassword(password);
-      // setRPassword(repassword);
+    
 
     }).catch(error => {
       alert("Error Ocurred getting user detail:" + error);
@@ -48,14 +44,7 @@ function Edituser() {
   const emailChangeHandler = (event) => {
     setUserEmail(event.target.value);
   };
-  
-  // const passChangeHandler = (event) => {
-  //   setPassword(event.target.value);
-  // };
-   
-  // const repassChangeHandler = (event) => {
-  //   setRPassword(event.target.value);
-  // };
+ 
   const submitActionHandler = (event) => {
     event.preventDefault();
     axios.post(`http://127.0.0.1:8000/api/update/${id}`,
@@ -118,25 +107,7 @@ function Edituser() {
                       onChange={emailChangeHandler}
                     />
                   </CCol>
-                  {/* <CCol md={12}>
-                    <CFormInput
-                      label="Password"
-                      placeholder="Password"
-                      autoComplete="password"
-                      value={password}
-                      onChange={passChangeHandler}
-                    />
-                  </CCol>
-                  <CCol md={12}>
-                    <CFormInput
-                      label="Repassword"
-                      placeholder="Repassword"
-                      autoComplete="repassword"
-                      value={repassword}
-                      onChange={repassChangeHandler}
-                    />
-                  </CCol> */}
-
+               
                   <CCol md={12}>
                     <CButton type="submit" color="success">
                       Update

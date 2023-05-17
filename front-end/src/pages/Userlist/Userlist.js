@@ -68,7 +68,7 @@ function Userlist() {
                 <table className="table table-bordered">
                   <thead>
                     <tr>
-                      <th>#</th>
+                      <th>No</th>
                       <th>User Name</th>
                       <th>Email</th>
                       <th>Actions</th>

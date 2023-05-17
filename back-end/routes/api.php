@@ -24,20 +24,12 @@ Route::controller(RegisterController::class)->group(function(){
     Route::post('login', 'login');
     Route::get('show', 'show');
     Route::get('/edit/{id}', 'edit');
-
-    Route::post("update/{id}",[RegisterController::class, 'update']);
-
-    //Route::delete('delete-user','/destroy/{id}');
-    Route::delete("destroy/{id}", [RegisterController::class, "destroy"]);
+    Route::post("update/{id}",'update');
+    Route::delete("destroy/{id}","destroy");
 });
         
 Route::middleware('auth:sanctum')->group( function () {
     Route::resource('products', ProductController::class);
-    // Route::get("show/{id}", [ProductController::class, "show"]);
-    // Route::post("update/{id}", [ProductController::class, "update"]);
-    // Route::delete("destroy/{id}", [ProductController::class, "destroy"]);
-
-
 });
 
 Route::middleware('auth:sanctum')->group( function () {

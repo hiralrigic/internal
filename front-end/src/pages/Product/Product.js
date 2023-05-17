@@ -1,11 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
+import {
+  CButton,
+  CCard,
+  CCardBody,
+  CCol,
+  CContainer,
+  CForm,
+  CFormInput,
+  CFormLabel,
+  CInputGroupText,
+  CRow,
+} from '@coreui/react'
 
 
 
 function Product() {
-  const [value, setValue] = useState([])
+  const [data, setData] = useState([])
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -13,14 +25,37 @@ function Product() {
   }, [])
 
   const fetchValue = () => {
+    var token = localStorage.getItem('platformDashToken')
+    // console.log(token)
     axios({
       method: 'get',
-
       url: 'http://127.0.0.1:8000/api/products',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
     })
       .then(function (response) {
-        setValue(response.data)
-        console.log(response.data)
+
+        var response = response.data.data
+        setData(response)
+
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+  }
+
+  //delete record
+  const deleteData = id => {
+    var token = localStorage.getItem('platformDashToken')
+    // console.log(token)
+
+    const header = { 'Authorization': `Bearer ${token}` }
+
+    axios.delete(`http://127.0.0.1:8000/api/products/${id}`, header)
+      .then(function (response) {
+        var response = response.data.data
+        setData(response)
       })
       .catch(function (error) {
         console.log(error)
@@ -54,18 +89,21 @@ function Product() {
                     </tr>
                   </thead>
                   <tbody>
-                    {value.length > 0 &&
-                      value.map((row, key) => (
-                        <tr key={key}>
-                          <td>{row.id }</td>
-                          <td>{row.name}</td>
-                          <td>{row.detail}</td>
-
+                    {
+                      data.map((element, index) => (
+                        <>    <tr>
+                          <td>{index + 1}</td>
+                          <td>{element.name}</td>
+                          <td>{element.detail}</td>
                           <td>
-                            {/* <CButton variant="danger" onClick={() => deleteData(row.id)} >Delete</CButton> */}
+                            {/* <Link to={`/${element.id}`} $ className="btn btn-success me-2">
+                              Edit
+                            </Link> */}
+                            <CButton variant="danger" onClick={() => deleteData(element.id)} >Delete</CButton>
                           </td>
-                        </tr>
-                      ))}
+                        </tr></>
+                      ))
+                    }
 
 
                   </tbody>
