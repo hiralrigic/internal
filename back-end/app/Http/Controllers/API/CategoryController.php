@@ -46,24 +46,45 @@ class CategoryController extends Controller
             "data" => $category
             ]);
             }
-    public function update(Request $request, Category $category)
+ public function edit($id)
             {
-            $input = $request->all();
-            $validator = Validator::make($input, [
-            'name' => 'required'
-            ]);
-            if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());       
+                $categorys = User::find($id);
+                if($categorys){
+        
+                    return response()->json([
+                        'status' => 200,
+                        'users' => $categorys
+                    ],200);
+                }else{
+        
+                    return response()->json([
+                        'status' => 404,
+                        'message' => "No User Found"
+                    ],404);
+        
+                }
             }
-            $category->name = $input['name'];
-            $category->save();
-            return response()->json([
-            "success" => true,
-            "message" => "Category updated successfully.",
-            "data" => $category
-            ]);
+public function update(Request $request,$id)
+            {
+                $category = Category::find($id);
+                $input = $request->all();
+
+                        // $validator = Validator::make($input, [
+                        // 'name' => 'required'
+                        // ]);
+                        // if($validator->fails()){
+                        // return $this->sendError('Validation Error.', $validator->errors());       
+                        // }
+                        $category->name=$input['name'];
+                        $category->save();
+                        return response()->json([
+                        "success" => true,
+                        "message" => "Category updated successfully.",
+                        "data" => $category
+                        ]);
             }
-    public function destroy(Category $category)
+
+public function destroy(Category $category)
             {
             $category->delete();
             return response()->json([

@@ -40,10 +40,9 @@ function Userlist() {
   }
  //delete record
   const deleteData = id => {
-    axios.delete(`http://127.0.0.1:8000/api/destroy/${id}`).then(response => {
-      setValue(response.data)
-      console.log(response.data)
-      navigate('/user')
+    axios.delete(`http://127.0.0.1:8000/api/destroy/${id}`)
+    .then(response => {
+      fetchValue()
     })
       .catch(function (error) {
         console.log(error)

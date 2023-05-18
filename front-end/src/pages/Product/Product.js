@@ -46,20 +46,29 @@ function Product() {
   }
 
   //delete record
-  const deleteData = id => {
+  const deleteData = async (e) => {
+    console.log(e)
     var token = localStorage.getItem('platformDashToken')
     // console.log(token)
 
     const header = { 'Authorization': `Bearer ${token}` }
-
-    axios.delete(`http://127.0.0.1:8000/api/products/${id}`, header)
+    // const url ='http://127.0.0.1:8000/api/products/'+e
+    console.log(header)
+    axios({
+      method: 'delete',
+      url: 'http://127.0.0.1:8000/api/products/' + e,
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
       .then(function (response) {
-        var response = response.data.data
-        setData(response)
+        fetchValue()
+
       })
       .catch(function (error) {
         console.log(error)
       })
+
   }
 
   return (
@@ -90,16 +99,16 @@ function Product() {
                   </thead>
                   <tbody>
                     {
-                      data.map((element, index) => (
+                      data.map((row, index) => (
                         <>    <tr>
                           <td>{index + 1}</td>
-                          <td>{element.name}</td>
-                          <td>{element.detail}</td>
+                          <td>{row.name}</td>
+                          <td>{row.detail}</td>
                           <td>
                             {/* <Link to={`/${element.id}`} $ className="btn btn-success me-2">
                               Edit
                             </Link> */}
-                            <CButton variant="danger" onClick={() => deleteData(element.id)} >Delete</CButton>
+                            <CButton variant="danger" value={row.id} onClick={(e) => deleteData(e.target.value)} >Delete</CButton>
                           </td>
                         </tr></>
                       ))

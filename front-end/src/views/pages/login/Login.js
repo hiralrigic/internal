@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 
-import { Link,useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import {
   CButton,
   CCard,
@@ -24,28 +24,27 @@ function Login() {
   const [password, setPassword] = useState()
   const navigate = useNavigate()
 
-  function handleSubmit(e){
+  function handleSubmit(e) {
     // e.preventDefault()
-   const  data= {
+    const data = {
       email: username,
       password: password,
     }
-      axios
+    axios
       .post("http://127.0.0.1:8000/api/login", data)
       .then((response) => {
         if (response.status === 200) {
-         var token =localStorage.setItem('platformDashToken', response.data.data.token)
-          console.log( response.data.data.token)
+          var token = localStorage.setItem('platformDashToken', response.data.data.token)
+          console.log(response.data.data.token)
           navigate('/dashboard')
-        } else {
+        } 
+        else {
           alert(response.data.success)
         }
       })
       .catch((error) => {
         alert(error.response.data.message)
       })
-       
-      
   }
 
   return (
@@ -63,7 +62,7 @@ function Login() {
                       <CInputGroupText>
                         <CIcon icon={cilUser} />
                       </CInputGroupText>
-                      <CFormInput placeholder="Username" autoComplete="username"  onChange={(e) => setUsername(e.target.value)} />
+                      <CFormInput placeholder="Username" autoComplete="username" onChange={(e) => setUsername(e.target.value)} />
                     </CInputGroup>
                     <CInputGroup className="mb-4">
                       <CInputGroupText>

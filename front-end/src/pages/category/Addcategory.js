@@ -20,37 +20,31 @@ function Addcategory() {
     const [data, setData] = useState([])
     const navigate = useNavigate()
 
-    function handleSubmit(e) {
-        // e.preventDefault()
+    const handleSubmit = () => {
         var token = localStorage.getItem('platformDashToken')
         // console.log(token)
-        const data = {
-            name: name,
-        }
-        const header = { 'Authorization': `Bearer ${token}` }
-        axios
-            .post('http://127.0.0.1:8000/api/category', data, header)
-            .then(function (response) {
-
-                var response = response.data.data
-                setData(response)
+        let data = JSON.stringify({
+            "name": name
+        });
+        let config = {
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: 'http://127.0.0.1:8000/api/category',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            data: data
+        };
+        axios.request(config)
+            .then((response) => {
+                console.log(JSON.stringify(response.data));
+                navigate('/category')
             })
-            .catch(function (error) {
-                console.log(error)
-            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
-    // .then((response) => {
-    //     if (response.status === 200) {
-    //         console.log(response.data.success)
-    //         navigate('/category')
-    //     } else {
-    //         alert(response.data.success)
-    //     }
-    // })
-    // .catch((error) => {
-    //     alert(error.response.data.message)
-    // })
-
     return (
         // <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
         <CContainer>
