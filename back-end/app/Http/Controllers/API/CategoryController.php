@@ -22,12 +22,14 @@ class CategoryController extends Controller
             {
             $input = $request->all();
             $validator = Validator::make($input, [
-            'name' => 'required'
+            'category' => 'required'
             ]);
             if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors());       
             }
-            $category = Category::create($input);
+            $category = new Category;
+                $category->category=$request->category;
+                $category->save();
             return response()->json([
             "success" => true,
             "message" => "Category created successfully.",
@@ -36,14 +38,14 @@ class CategoryController extends Controller
             } 
     public function show($id)
             {
-            $category = Category::find($id);
-            if (is_null($category)) {
+            $categorys = Category::find($id);
+            if (is_null($categorys)) {
             return $this->sendError('Category not found.');
             }
             return response()->json([
             "success" => true,
             "message" => "Category retrieved successfully.",
-            "data" => $category
+            "data" => $categorys
             ]);
             }
  public function edit($id)
@@ -67,21 +69,15 @@ class CategoryController extends Controller
 public function update(Request $request,$id)
             {
                 $category = Category::find($id);
-                $input = $request->all();
-
-                        // $validator = Validator::make($input, [
-                        // 'name' => 'required'
-                        // ]);
-                        // if($validator->fails()){
-                        // return $this->sendError('Validation Error.', $validator->errors());       
-                        // }
-                        $category->name=$input['name'];
-                        $category->save();
-                        return response()->json([
-                        "success" => true,
-                        "message" => "Category updated successfully.",
-                        "data" => $category
-                        ]);
+                // $input = $request->all();
+                
+                $category->category=$request->category;
+                $category->save();
+                return response()->json([
+                "success" => true,
+                "message" => "Category updated successfully.",
+          
+                 ]);
             }
 
 public function destroy(Category $category)

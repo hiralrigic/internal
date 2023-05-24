@@ -105,9 +105,9 @@ function Product() {
                           <td>{row.name}</td>
                           <td>{row.detail}</td>
                           <td>
-                            {/* <Link to={`/${element.id}`} $ className="btn btn-success me-2">
+                            <Link to={`/editproduct/${row.id}`} $ className="btn btn-success me-2">
                               Edit
-                            </Link> */}
+                            </Link>
                             <CButton variant="danger" value={row.id} onClick={(e) => deleteData(e.target.value)} >Delete</CButton>
                           </td>
                         </tr></>

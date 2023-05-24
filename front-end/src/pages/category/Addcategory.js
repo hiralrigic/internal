@@ -16,7 +16,7 @@ import {
 
 function Addcategory() {
 
-    const [name, setCategorytname] = useState()
+    const [category, setCategory] = useState()
     const [data, setData] = useState([])
     const navigate = useNavigate()
 
@@ -24,7 +24,7 @@ function Addcategory() {
         var token = localStorage.getItem('platformDashToken')
         // console.log(token)
         let data = JSON.stringify({
-            "name": name
+            "category": category
         });
         let config = {
             method: 'post',
@@ -38,7 +38,7 @@ function Addcategory() {
         };
         axios.request(config)
             .then((response) => {
-                console.log(JSON.stringify(response.data));
+                // console.log(JSON.stringify(response.data));
                 navigate('/category')
             })
             .catch((error) => {
@@ -65,13 +65,15 @@ function Addcategory() {
                                     <CFormInput
                                         label="Name"
                                         placeholder="Category Name"
-                                        autoComplete="name"
-                                        onChange={(e) => setCategorytname(e.target.value)}
+                                        autoComplete="category"
+                                        name='category'
+                                        value={category}
+                                        onChange={(e) => setCategory(e.target.value)}
                                     />
                                 </CCol>
 
                                 <CCol md={12}>
-                                    <CButton type="submit" color="success" onClick={handleSubmit}>
+                                    <CButton  color="success" onClick={handleSubmit}>
                                         Submit
                                     </CButton>
                                 </CCol>

@@ -54,9 +54,7 @@ class ProductController extends BaseController
     public function show($id)
     {
         $product = Product::find($id);
-        
-  
-        if (is_null($product)) {
+         if (is_null($product)) {
             return $this->sendError('Product not found.');
         }
    
@@ -70,26 +68,40 @@ class ProductController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+
+     public function edit($id)
+    {
+        // $product = Product::find($id);
+        // echo"<pre>";print_r($product);die;
+        // if (is_null($product)) {
+        //     return $this->sendError('Product not found.');
+        // }
+   
+        // return $this->sendResponse(new ProductResource($product), 'Product retrieved successfully.');
+    }
+    public function update(Request $request,$id)
     {
         $input = $request->all();
-        // echo "<pre>";print_r($input);die();
    
-        // $validator = Validator::make($input, [
-        //     'name' => 'required',
-        //     'detail' => 'required'
-        // ]);
+        $validator = Validator::make($input, [
+            'name' => 'required',
+            'detail' => 'required'
+        ]);
    
-        // if($validator->fails()){
-        //     return $this->sendError('Validation Error.', $validator->errors());       
-        // }
-        $product = Product::find($id);
-        // echo "<pre>";print_r($product);die();
+        if($validator->fails()){
+            return $this->sendError('Validation Error.', $validator->errors());       
+        }
+        $product = Product::find($id);   
         $product->name = $input['name'];
         $product->detail = $input['detail'];
         $product->save();
    
-        return $this->sendResponse(new ProductResource($product), 'Product updated successfully.');
+        // $product = Product::find($id);   
+        // $product->name = $request->name;
+        // $product->detail =$request->detail; 
+        // $product->save();
+   
+        return $this->sendResponse(new ProductResource($product), 'Product Updated Successfully.');
     }
    
     /**

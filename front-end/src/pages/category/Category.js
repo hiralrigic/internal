@@ -101,11 +101,11 @@ function Category() {
                       data.map((row, index) => (
                         <>    <tr>
                           <td>{index + 1}</td>
-                          <td>{row.name}</td>
+                          <td>{row.category}</td>
                           <td>
-                            {/* <Link to={`/editcategory/${element.id}`} $ className="btn btn-success me-2">
+                             <Link to={`/editcategory/${row.id}`} $ className="btn btn-success me-2">
                               Edit
-                            </Link> */}
+                            </Link>
                             <CButton variant="danger" value={row.id} onClick={(e) => deleteData(e.target.value)} >Delete</CButton>
                           </td>
                         </tr></>

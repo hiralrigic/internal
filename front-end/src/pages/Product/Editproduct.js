@@ -16,13 +16,14 @@ import {
 import { cilLockLocked, cilUser } from '@coreui/icons'
 
 
-function Editcategory() {
+function Editproduct() {
     const navigate = useNavigate();
     const { id } = useParams();
-    const [category, setCategory] = useState("")
-    const [getData, setgetData] = useState({
-        category: '',
-    })
+    const [name, setname] = useState("")
+    const [detail, setdetail] = useState("")
+    // const [getData, setgetData] = useState({
+    //     category: '',
+    // })
 
     useEffect(() => {
 
@@ -32,7 +33,7 @@ function Editcategory() {
 
         var token = localStorage.getItem('platformDashToken')
         // console.log(token)
-        await axios.get(`http://127.0.0.1:8000/api/category/${id}`,
+        await axios.get(`http://127.0.0.1:8000/api/products/${id}`,
             {
                 headers: {
                     'Content-Type': 'application/json',
@@ -41,27 +42,34 @@ function Editcategory() {
             }
         )
             .then((response) => {
-                const { category } = response.data.data;
+                const { name } = response.data.data;
+                const { detail } = response.data.data;
 
-                setCategory(category);
+                setname(name);
+                setdetail(detail);
+                
                 console.log(data)
             });
 
     }
 
-    const handlecategory = (event) => {
-        setCategory(event.target.value);
+    const handlename = (event) => {
+        setname(event.target.value);
+    }
+    const handledetail = (event) => {
+        setdetail(event.target.value);
     }
     const handleSubmit = (e) => {
         e.preventDefault();
         var token = localStorage.getItem('platformDashToken');
         let data = JSON.stringify({
-            "category": category,
+            "name": name,
+            "detail": detail
         });
         let config = {
             method: 'put',
             maxBodyLength: Infinity,
-            url: 'http://127.0.0.1:8000/api/category/' + id,
+            url: 'http://127.0.0.1:8000/api/products/' + id,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
@@ -71,7 +79,7 @@ function Editcategory() {
         axios.request(config)
             .then((response) => {
                 console.log(JSON.stringify(response.data));
-                navigate('/category')
+                navigate('/product')
             })
             .catch((error) => {
                 console.log(error);
@@ -88,7 +96,7 @@ function Editcategory() {
                                 <div className="card-header">
                                     <h4>
                                         Edit Category
-                                        <Link to={'/category'} className="btn btn-primary btn-sm float-end">
+                                        <Link to={'/product'} className="btn btn-primary btn-sm float-end">
                                             Back
                                         </Link>
                                     </h4>
@@ -103,9 +111,17 @@ function Editcategory() {
                                 </CCol>
                                 <CCol md={12}>
                                     <CFormInput
-                                        label='Category'
-                                        value={category}
-                                        onChange={handlecategory}
+                                        label='Name'
+                                        value={name}
+                                        onChange={handlename}
+
+                                    />
+                                </CCol>
+                                <CCol md={12}>
+                                    <CFormInput
+                                        label='Detail'
+                                        value={detail}
+                                        onChange={handledetail}
 
                                     />
                                 </CCol>
@@ -124,4 +140,4 @@ function Editcategory() {
     )
 }
 
-export default Editcategory
+export default Editproduct
