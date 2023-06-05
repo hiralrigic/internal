@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-
+import { Modal} from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import {
   CButton,
@@ -22,6 +22,7 @@ import { cilLockLocked, cilUser } from '@coreui/icons'
 function Login() {
   const [username, setUsername] = useState()
   const [password, setPassword] = useState()
+  const [popup, setPopup] = useState(false);
   const navigate = useNavigate()
 
   function handleSubmit(e) {
@@ -39,11 +40,14 @@ function Login() {
           navigate('/dashboard')
         } 
         else {
-          alert(response.data.success)
+          setPopup(true);
+          // alert(response.data.success)
         }
       })
       .catch((error) => {
-        alert(error.response.data.message)
+        setPopup(true);
+        // alert(error.response.data.message)
+       
       })
   }
 
@@ -82,9 +86,11 @@ function Login() {
                         </CButton>
                       </CCol>
                       <CCol xs={6} className="text-right">
+                      <Link to="/forgotpassword">
                         <CButton color="link" className="px-0">
                           Forgot password?
                         </CButton>
+                        </Link>
                       </CCol>
                     </CRow>
                   </CForm>
@@ -110,6 +116,31 @@ function Login() {
           </CCol>
         </CRow>
       </CContainer>
+      {
+        popup === false?
+        <></>
+        :
+        <>
+        <Modal show={popup}>
+       
+              <Modal.Header>
+                <Modal.Title>Alert</Modal.Title>
+                <button
+                  className="btn-close"
+                  aria-label="Close"
+                  onClick={() => setPopup(false)}
+                ></button>
+              </Modal.Header>
+              <Modal.Body>username or password incorrect</Modal.Body>
+              {/* <Modal.Footer>
+                <Button variant="secondary" onClick={() => setModelShow(false)}>
+                  Close
+                </Button>
+              </Modal.Footer> */}
+         
+        </Modal>
+        </>
+      }
     </div>
   )
 }

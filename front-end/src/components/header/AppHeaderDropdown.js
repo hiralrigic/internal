@@ -85,8 +85,10 @@ const AppHeaderDropdown = () => {
         </CDropdownItem>
         <CDropdownDivider />
         <CDropdownItem href="#">
-          <CIcon icon={cilLockLocked} className="me-2" />
-          Lock Account
+          <CIcon
+          onClick={() => { localStorage.removeItem('platformDashToken')}}
+              className="me-2" />
+          {/* Lock Account */}Logout
         </CDropdownItem>
       </CDropdownMenu>
     </CDropdown>

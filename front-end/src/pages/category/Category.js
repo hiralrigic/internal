@@ -106,7 +106,7 @@ function Category() {
                              <Link to={`/editcategory/${row.id}`} $ className="btn btn-success me-2">
                               Edit
                             </Link>
-                            <CButton variant="danger" value={row.id} onClick={(e) => deleteData(e.target.value)} >Delete</CButton>
+                            <CButton variant="danger" value={row.id} onClick={(e) =>{if (window.confirm('Are you sure you wish to delete this item?')) deleteData(e.target.value)} }>Delete</CButton>
                           </td>
                         </tr></>
                       ))

@@ -5,8 +5,11 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController as BaseController;
 use App\Models\User;
+use App\Models\Password_reset_tokens;
 use Illuminate\Support\Facades\Auth;
 use Validator;
+use Illuminate\Support\Facades\Hash;
+
    
 class RegisterController extends BaseController
 {
@@ -86,23 +89,19 @@ class RegisterController extends BaseController
     $user = User::find($id);
 
     $input = $request->all();
-    // $validator = Validator::make($input, [
-    // 'name' => 'required',
-    // 'email' => 'required|email',
-    // ]);
-    // if($validator->fails()){
-    // return $this->sendError('Validation Error.', $validator->errors());       
-    // }
+   
     $user->name = $input['name'];
     $user->email = $input['email'];
-
+        if(!empty($input['password'])){
+            $user->password=Hash::make($input['password']);
+        }
     $user->save();
     return response()->json([
-    "success" => true,
-    "message" => "user updated successfully.",
-    "data" => $user
-    ]);
-}
+                            "success" => true,
+                            "message" => "user updated successfully.",
+                            "data" => $user
+                            ]);
+        }
 
     public function destroy($id)
     {
@@ -116,7 +115,39 @@ class RegisterController extends BaseController
             'message' => 'User Delete successfully'
         ]);
     }
+//     public function forgotPassword(Request $request)
+//         {
+//             $request->validate([
+//                 'email' => 'required|email|exists:users',
+//             ]);
 
+//             $token = Str::random(64);
+        
+//             User::table('password_resets')->insert([
+//                 'email' => $request->email,
+//                 'token' => $token,
+            
+//             ]);
+
+//                  return back()->with('message');
+// }
    
+//     // public function reset() {
+//     //     $credentials = request()->validate([
+//     //         'email' => 'required|email',
+//     //         'token' => 'required|string',
+//     //         'password' => 'required|string|confirmed'
+//     //     ]);
 
+//     //     $reset_password_status = Password::reset($credentials, function ($user, $password) {
+//     //         $user->password = $password;
+//     //         $user->save();
+//     //     });
+
+//     //     if ($reset_password_status == Password::INVALID_TOKEN) {
+//     //         return response()->json(["msg" => "Invalid token provided"], 400);
+//     //     }
+
+//     //     return response()->json(["msg" => "Password has been successfully changed"]);
+//     // }
 }

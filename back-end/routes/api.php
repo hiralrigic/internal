@@ -2,6 +2,7 @@
   
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Password;
   
 use App\Http\Controllers\API\RegisterController;
 use App\Http\Controllers\API\ProductController;
@@ -26,6 +27,8 @@ Route::controller(RegisterController::class)->group(function(){
     Route::get('/edit/{id}', 'edit');
     Route::post("update/{id}",'update');
     Route::delete("destroy/{id}","destroy");
+    Route::post('forgotpassword', 'forgotpassword');
+    // Route::post('password/reset', 'reset');
 });
         
 Route::middleware('auth:sanctum')->group( function () {

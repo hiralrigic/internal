@@ -22,6 +22,7 @@ function Edituser() {
 
   const [name, setUserName] = useState('');
   const [email, setUserEmail] = useState('');
+  const [password, setUserPassword] = useState('');
  
 
   useEffect(() => {
@@ -30,6 +31,7 @@ function Edituser() {
     
       setUserName(name);
       setUserEmail(email);
+      setUserPassword(password);
     
 
     }).catch(error => {
@@ -44,6 +46,9 @@ function Edituser() {
   const emailChangeHandler = (event) => {
     setUserEmail(event.target.value);
   };
+  const passwordChangeHandler = (event) => {
+    setUserPassword(event.target.value);
+  };
  
   const submitActionHandler = (event) => {
     event.preventDefault();
@@ -52,7 +57,7 @@ function Edituser() {
         id: id,
         name: name,
         email: email,
-        // password: password,
+        password: password,
         // repassword: repassword
       })
       .then((response) => {
@@ -105,6 +110,14 @@ function Edituser() {
                       autoComplete="email"
                       value={email}
                       onChange={emailChangeHandler}
+                    />
+                  </CCol>
+                  <CCol md={12}>
+                    <CFormInput
+                      label="Password"
+                      placeholder="Password"
+                      autoComplete="Password"
+                      onChange={passwordChangeHandler}
                     />
                   </CCol>
                

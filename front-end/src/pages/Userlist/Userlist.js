@@ -86,7 +86,7 @@ function Userlist() {
                             <Link to={`/edituser/${row.id}`} $ className="btn btn-success me-2">
                               Edit
                             </Link>
-                            <CButton variant="danger" onClick={() => deleteData(row.id)} >Delete</CButton>
+                            <CButton variant="danger" onClick={() =>  {if (window.confirm('Are you sure you wish to delete this item?'))deleteData(row.id)} }>Delete</CButton>
                           </td>
                         </tr>
                       ))}
